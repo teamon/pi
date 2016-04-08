@@ -1,0 +1,13 @@
+---
+- hosts: all
+  remote_user: root
+  tasks:
+  - name: install cups
+    apt: name=cups state=latest
+  - name: add user pi to lpadmin group
+    user: name=pi groups=pi,lpadmin
+  - name: enable cups remote access
+    shell: cupsctl --remote-any
+  - name: restart cups server
+    service: name=cups state=restarted
+
